@@ -1,28 +1,33 @@
-# Hive_basic_homework
+# Apache Hive ile Tablo İşlemleri ve Veri Manipülasyonu
+
 
 ### Create a hive database `hive_odev` and load this data https://raw.githubusercontent.com/erkansirin78/datasets/master/Wine.csv into `wine` table.
 
  ```bash  
 CREATE DATABASE hive_odev;
 
-CREATE TABLE hive odev.wine (
-Alcohol FLOAT,
-Malic Acid FLOAT,
-Ash FLOAT,
-Ash_Alcanity FLOAT,
-Magnesium INT,
-Total Phenols FLOAT,
-Flavanoids FLOAT, Hue FLOAT, 0D280 FLOAT,
-Nonflavanoid_Phenols FLOAT,
-Proanthocyanins FLOAT,
-Color_Intensity FLOAT,
-Proline INT,
-Customer_Segment INT
-)
+
+create table if not exists wine(Wine int,
+Alcohol float,
+Malicacid float,
+Ash float,
+Acl int,
+Mg float,
+Phenols float,
+Flavanoids float,
+Nonflavanoidphenols float,
+Proanth float,
+Color.int float,
+Hue float,
+OD float,
+Proline int)
+
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY
 LINES TERMINATED BY '\n'
-STORED AS TEXTFILE;
+STORED AS TEXTFILE
+tblproperties('skip.header.line.count'='1');
+
 
 
 load data local inpath '/Wine.csv' into table hive_odev.wine;
@@ -40,27 +45,5 @@ create table hive_odev.wine_alc_gt_13 as select * from wine where Alcohol>13;
 drop database hive_odev cascade;
 ```
 
+![Ekran görüntüsü 2024-01-21 144900](https://github.com/irem6142/Open_Source_Big_Data_Basics/assets/83772404/e93eca8c-e21c-40c3-9a93-8836fe7c23ed)
 
-### 4.Load this https://raw.githubusercontent.com/erkansirin78/datasets/master/hive/employee.txt into table `employee` in `company` database. 
-```bash
-CREATE DATABASE company;
-
-CREATE TABLE company.employee (
-name STRING,
-work_place ARRAY<STRING>,
-gender_age STRUCT<gender: STRING, age: INT>,
-skills_score MAP<STRING, INT>
-)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY ''
-COLLECTION ITEMS TERMINATED BY','
-MAP KEYS TERMINATED BY ':'
-STORED AS TEXTFILE
-TBLPROPERTIES ('skip.header.line.count'='1');
-```
-
-### 5. Write a query that returns the employees whose Python skill is greater than 70.
-```bash
-select * from employee where employee.skills["Python"]>70;
-```
-  
